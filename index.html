@@ -1,0 +1,36 @@
+<html>
+
+<script>
+// Check if the browser supports the Web Speech API
+if ('webkitSpeechRecognition' in window) {
+  const recognition = new webkitSpeechRecognition();
+
+  // Set the language for speech recognition
+  recognition.lang = 'en-US';
+
+  // Start the speech recognition
+  recognition.start();
+
+  // When speech is recognized, display it as text
+  recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    const textElement = document.getElementById('text');
+    textElement.textContent = transcript;
+  };
+
+  // If there is an error, display it
+  recognition.onerror = function(event) {
+    console.error(event.error);
+  };
+} else {
+  console.log('Web Speech API is not supported in this browser.');
+}
+</script>
+<form action="t3.php" method="post">
+  <textarea name="paragraph" id="text"></textarea>
+<br>
+<br>
+  <input type="submit" value="Submit">
+</form>
+
+</html>
